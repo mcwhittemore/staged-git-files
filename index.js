@@ -1,4 +1,5 @@
 var exec = require("child_process").exec;
+var fs = require("fs");
 
 var sgf = function(filter, callback) {
 
@@ -16,7 +17,7 @@ var sgf = function(filter, callback) {
                 if (err || stderr) {
                     callback(err || new Error(stderr));
                 } else {
-                    callback(null, stringToArray(stdout));
+                    callback(null, stdoutToResultsObject(stdout));
                 }
             });
         }
@@ -25,6 +26,7 @@ var sgf = function(filter, callback) {
 
 sgf.cwd = process.cwd();
 sgf.debug = false;
+sgf.includeContent = false;
 
 sgf.firstHead = "4b825dc642cb6eb9a060e54bf8d69288fbee4904";
 
@@ -38,6 +40,10 @@ sgf.getHead = function(callback) {
             callback(null, stdout);
         }
     });
+}
+
+sgf.readFile = function(filename, options, callback) {
+    fs.readFile(sgf.cwd + "/" + filename, options, callback);
 }
 
 
@@ -78,7 +84,7 @@ var codeToStatus = function(code) {
     return map[code];
 }
 
-var stringToArray = function(stdout) {
+var stdoutToResultsObject = function(stdout) {
     var results = [];
     var lines = stdout.split("\n");
     var iLines = lines.length;
@@ -91,6 +97,17 @@ var stringToArray = function(stdout) {
                 filename: parts[1],
                 status: codeToStatus(parts[0])
             }
+
+            if (sgf.includeContent) {
+                try {
+                    result.content = fs.readFileSync(sgf.cwd + "/" + result.filename, {
+                        encoding: "utf8"
+                    });
+                } catch (err) {
+                    result.err = err;
+                }
+            }
+
             results.push(result);
         }
     }

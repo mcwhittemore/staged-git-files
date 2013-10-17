@@ -56,7 +56,7 @@ describe("As a module", function() {
 
     describe("used in a directory with staged files", function() {
 
-        before(function(done) {
+        beforeEach(function(done) {
             setup(function(err) {
                 if (err) {
                     done(err);
@@ -78,6 +78,31 @@ describe("As a module", function() {
                 sgf(function(err, results) {
                     results[0].filename.should.equal(data.filename);
                     results[0].status.should.equal("Added");
+                    done(err);
+                });
+            });
+        });
+
+        it("if includeContent is set to true I should return the file paths, their git status and the content", function(done) {
+            addFile(function(err, data) {
+                var sgf = newSGF();
+                sgf.includeContent = true;
+                sgf(function(err, results) {
+                    results[0].filename.should.equal(data.filename);
+                    results[0].status.should.equal("Added");
+                    results[0].content.should.equal(data.content);
+                    done(err);
+                });
+            });
+        });
+
+        it("readFile will aysnc read a file and return its content", function(done) {
+            addFile(function(err, data) {
+                var sgf = newSGF();
+                sgf.readFile(data.filename, {
+                    encoding: "utf8"
+                }, function(err, content) {
+                    content.should.equal(data.content);
                     done(err);
                 });
             });
