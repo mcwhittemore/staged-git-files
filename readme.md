@@ -75,7 +75,7 @@ If true, include content will add a `content` or `err` param to the file object.
 
 The current working directory. AKA: where the .git folder you care about is.
 
-# Default Value: is equal to process.cwd() of your app.
+# Default Value: is equal to process.cwd() of your app.g
 
 ## Statuses
 
@@ -91,6 +91,10 @@ The current working directory. AKA: where the .git folder you care about is.
 * Unknown (X)
 
 ## Change Log
+
+### 0.0.2
+
+* sgf.includeContent added. Now it is possible to also get the file content
 
 ### 0.0.1
 
