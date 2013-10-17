@@ -48,3 +48,9 @@ sgf(function(err, results){
 * Type-Change (T) [i.e. regular file, symlink, submodule, etc.]
 * Unmerged (U)
 * Unknown (X)
+
+## Change Log
+
+### 0.0.1
+
+* The mvp
