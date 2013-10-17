@@ -6,7 +6,7 @@
     "esprima.hks": "0.0.0",
     "should": "~2.0.1"
   },
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "get a list of staged git files and their status",
   "main": "index.js",
   "directories": {
