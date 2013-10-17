@@ -1,8 +1,38 @@
 {
-  "name": "default",
+  "name": "staged-git-files",
   "devDependencies": {
     "node-hooks": "0.0.15",
     "beautify.hks": "0.0.1",
-    "esprima.hks": "0.0.0"
+    "esprima.hks": "0.0.0",
+    "should": "~2.0.1"
+  },
+  "version": "0.0.0",
+  "description": "get a list of staged git files and their status",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "esprima.hks": "~0.0.0",
+    "beautify.hks": "~0.0.1",
+    "node-hooks": "~0.0.15"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mcwhittemore/staged-git-files.git"
+  },
+  "keywords": [
+    "git",
+    "pre-commit",
+    "post-commit",
+    "hooks"
+  ],
+  "author": "Matthew Chase Whittemore <mcwhittemore@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/mcwhittemore/staged-git-files/issues"
   }
 }
