@@ -1,0 +1,8 @@
+{
+  "name": "default",
+  "devDependencies": {
+    "node-hooks": "0.0.15",
+    "beautify.hks": "0.0.1",
+    "esprima.hks": "0.0.0"
+  }
+}
