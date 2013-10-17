@@ -6,7 +6,7 @@ This module returns an array of staged files and their status acording to git.
 
 **Download**
 
-`npm install sgf`
+`npm install staged-git-files`
 
 **In Code**
 
@@ -36,9 +36,50 @@ sgf(function(err, results){
 ]
 ```
 
+## API
+
+### sgf(filter, callback)
+
+Get a list of staged git files
+
+* filter: string of git status codes. No spaces
+* callback:
+	* err: the error
+	* results: file object array.
+
+### sgf.getHead(callback)
+
+Get head that will be used in the diff to ID which files are waiting to be staged.
+
+* callback
+	* err: the error
+	* head: the git commit id which is aliased to head.
+
+### sgf.readFile(filename, [options], callback)
+
+This is a proxy for [fs.readFile](http://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback) with one change. The filename will be relative to the `sgf.cwd`
+
+### sgf.debug
+
+Boolean that flips logging on and off. By default this is false. If true, all git commands will be console logged.
+
+### sgf.includeContent
+
+If true, include content will add a `content` or `err` param to the file object.
+
+* Default Value: false
+* Content Param: the content of the file staged
+* Err Param: the error message received while trying to read the file.
+
+### sgf.cwd
+
+The current working directory. AKA: where the .git folder you care about is.
+
+# Default Value: is equal to process.cwd() of your app.
+
 ## Statuses
 
-**SFG-Status (git status code)**
+**SGF-Status (git status code)**
 
 * Added (A)
 * Copied (C)
