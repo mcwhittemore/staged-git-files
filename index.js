@@ -12,7 +12,7 @@ var sgf = function(filter, callback) {
         if (err) {
             callback(err);
         } else {
-            var command = "git diff-index --cached --name-status --diff-filter=" + filter + " " + head + " --";
+            var command = "git diff-index --cached --name-status --diff-filter=" + filter + " " + head;
             run(command, function(err, stdout, stderr) {
                 if (err || stderr) {
                     callback(err || new Error(stderr));
