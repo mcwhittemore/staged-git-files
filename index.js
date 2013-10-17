@@ -69,7 +69,7 @@ var codeToStatus = function(code) {
         "D": "Deleted",
         "M": "Modified",
         "R": "Renamed",
-        "T": "Changed",
+        "T": "Type-Change",
         "U": "Unmerged",
         "X": "Unknown",
         "B": "Broken"
