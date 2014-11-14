@@ -4,7 +4,7 @@ exec = require("child_process").exec;
 test_folder = process.cwd() + "/test/test-dir";
 
 cleanUp = function(callback) {
-    exec("rm -rf " + test_folder, function(err, stderr, stdout) {
+    exec("rm -rf '" + test_folder + "'", function(err, stderr, stdout) {
         if (err || stderr) {
             callback(err || new Error(stderr));
         } else {
@@ -18,7 +18,7 @@ setup = function(callback) {
         if (err) {
             callback(err);
         } else {
-            exec("mkdir " + test_folder, function(err, stdout, stderr) {
+            exec("mkdir '" + test_folder + "'", function(err, stdout, stderr) {
                 if (err || stderr) {
                     callback(err || new Error(stderr));
                 } else {
@@ -36,7 +36,7 @@ newSGF = function() {
 }
 
 run = function(command, callback) {
-    exec("cd " + test_folder + " && " + command, callback);
+    exec("cd '" + test_folder + "' && " + command, callback);
 }
 
 newGit = function(callback) {

@@ -55,7 +55,7 @@ var run = function(command, callback) {
     if (sgf.debug) {
         console.log("RUNNING: " + command);
     }
-    exec("cd " + module.exports.cwd + " && " + command, callback);
+    exec("cd '" + module.exports.cwd + "' && " + command, callback);
 }
 
 var codeToStatus = function(code) {
