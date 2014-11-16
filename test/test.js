@@ -3,6 +3,23 @@ var fs = require("fs");
 exec = require("child_process").exec;
 test_folder = process.cwd() + "/test/test-dir";
 
+asyncCatch = function(done, test){
+    return function(err, value){
+        if(err){
+            done(err);
+        }
+        else{
+            try{
+                test(value);
+                done();
+            }
+            catch(err){
+                done(err);
+            }
+        }
+    }
+}
+
 cleanUp = function(callback) {
     exec("rm -rf '" + test_folder + "'", function(err, stderr, stdout) {
         if (err || stderr) {

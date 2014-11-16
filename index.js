@@ -32,7 +32,7 @@ sgf.firstHead = "4b825dc642cb6eb9a060e54bf8d69288fbee4904";
 
 sgf.getHead = function(callback) {
     run("git rev-parse --verify HEAD", function(err, stdout, stderr) {
-        if (err && err.message == "Command failed: fatal: Needed a single revision\n") {
+        if (err && err.message.indexOf("fatal: Needed a single revision")!==-1) {
             callback(null, sgf.firstHead);
         } else if (err || stderr) {
             callback(err || new Error("STDERR: " + stderr));

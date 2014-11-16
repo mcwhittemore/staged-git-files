@@ -33,10 +33,9 @@ describe("As a module", function() {
 
         it("firstHead in a repo without commits", function(done) {
             var sgf = newSGF();
-            sgf.getHead(function(err, head) {
+            sgf.getHead(asyncCatch(done, function(head){
                 head.should.equal(sgf.firstHead);
-                done(err);
-            });
+            }));
         });
 
         it("some hash in a repo with commits", function(done) {
@@ -45,10 +44,9 @@ describe("As a module", function() {
                     done(err);
                 } else {
                     var sgf = newSGF();
-                    sgf.getHead(function(err, head) {
+                    sgf.getHead(asyncCatch(done, function(head){
                         head.should.not.equal(sgf.firstHead);
-                        done(err);
-                    });
+                    }));
                 }
             });
         });
@@ -65,7 +63,9 @@ describe("As a module", function() {
                         if (err || stderr) {
                             done(err || new Error(stderr));
                         } else {
-                            done();
+                            addAndCommitFile(function(err){
+                                done(err);
+                            });
                         }
                     });
                 }
@@ -74,12 +74,16 @@ describe("As a module", function() {
 
         it("I should return the file paths and their git status", function(done) {
             addFile(function(err, data) {
-                var sgf = newSGF();
-                sgf(function(err, results) {
-                    results[0].filename.should.equal(data.filename);
-                    results[0].status.should.equal("Added");
+                if(err){
                     done(err);
-                });
+                }
+                else{
+                    var sgf = newSGF();
+                    sgf(asyncCatch(done, function(results){
+                        results[0].filename.should.equal(data.filename);
+                        results[0].status.should.equal("Added");
+                    }));
+                }
             });
         });
 
@@ -87,12 +91,11 @@ describe("As a module", function() {
             addFile(function(err, data) {
                 var sgf = newSGF();
                 sgf.includeContent = true;
-                sgf(function(err, results) {
+                sgf(asyncCatch(done, function(results){
                     results[0].filename.should.equal(data.filename);
                     results[0].status.should.equal("Added");
                     results[0].content.should.equal(data.content);
-                    done(err);
-                });
+                }));
             });
         });
 
@@ -110,6 +113,6 @@ describe("As a module", function() {
 
         after(function(done) {
             cleanUp(done);
-        })
+        });
     });
 });
