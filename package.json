@@ -1,6 +1,6 @@
 {
   "name": "staged-git-files",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "devDependencies": {
     "node-hooks": "0.0.15",
     "beautify.hks": "0.0.1",
