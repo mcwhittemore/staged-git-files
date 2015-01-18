@@ -1,21 +1,14 @@
 {
   "name": "staged-git-files",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "devDependencies": {
-    "node-hooks": "0.0.15",
-    "beautify.hks": "0.0.1",
-    "esprima.hks": "0.0.0",
-    "should": "~2.0.1"
+    "should": "~2.0.1",
+    "mocha": "^2.0.1"
   },
   "description": "get a list of staged git files and their status",
   "main": "index.js",
   "directories": {
     "test": "test"
-  },
-  "dependencies": {
-    "esprima.hks": "~0.0.0",
-    "beautify.hks": "~0.0.1",
-    "node-hooks": "~0.0.15"
   },
   "scripts": {
     "test": "mocha"
