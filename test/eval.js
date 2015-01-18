@@ -50,7 +50,7 @@ describe("As a module", function() {
                 }
             });
         });
-    })
+    });
 
     describe("used in a directory with staged files", function() {
 
@@ -73,15 +73,34 @@ describe("As a module", function() {
         });
 
         it("I should return the file paths and their git status", function(done) {
-            addFile(function(err, data) {
+            this.timeout(1000000000);
+            addFiles(1000, function(err, data) {
                 if(err){
                     done(err);
                 }
                 else{
+
+                    var sorter = function(a,b){
+                        if(a.filename > b.filename){
+                            return 1;
+                        }
+                        else if(a.filename < b.filename){
+                            return -1;
+                        }
+                        else{
+                            return 0;
+                        }
+                    };
+
+                    data.sort(sorter);
+
                     var sgf = newSGF();
                     sgf(asyncCatch(done, function(results){
-                        results[0].filename.should.equal(data.filename);
-                        results[0].status.should.equal("Added");
+                        results.sort(sorter);
+                        for(var i=0; i<results.length; i++){
+                            results[i].filename.should.equal(data[i].filename);
+                            results[i].status.should.equal("Added");
+                        }
                     }));
                 }
             });
