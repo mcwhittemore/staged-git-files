@@ -122,7 +122,28 @@ addFile = function(opts, callback) {
             });
         }
     });
+}
 
+addFiles = function(number, callback){
+    var files = [];
+    
+
+    var runner = function(err, data){
+        if(err){
+            callback(err);
+        }
+        else{
+            files.push(data);
+            if(files.length==number){
+                callback(null, files);
+            }
+            else{
+                addFile(runner);
+            }
+        }
+    }
+
+    addFile(runner);
 }
 
 addAndCommitFile = function(opts, callback) {

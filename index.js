@@ -1,4 +1,4 @@
-var exec = require("child_process").exec;
+var spawn = require("child_process").spawn;
 var fs = require("fs");
 
 var sgf = function(filter, callback) {
@@ -37,6 +37,7 @@ sgf.getHead = function(callback) {
         } else if (err || stderr) {
             callback(err || new Error("STDERR: " + stderr));
         } else {
+            stdout = stdout.replace("\n", "");
             callback(null, stdout);
         }
     });
@@ -55,7 +56,37 @@ var run = function(command, callback) {
     if (sgf.debug) {
         console.log("RUNNING: " + command);
     }
-    exec("cd '" + module.exports.cwd + "' && " + command, callback);
+    
+    // var exec = require("child_process").exec;
+    // exec("cd '" + module.exports.cwd + "' && " + command, callback);
+    
+    var bits = command.split(" ");
+    var args = bits.slice(1);
+
+    var cmd = spawn(bits[0], args, {
+        cwd: module.exports.cwd
+    });
+
+    var stdout = "";
+    var stderr = "";
+
+    cmd.stdout.on('data', function(data){
+        stdout+=data.toString();
+    });
+
+    cmd.stderr.on('data', function(data){
+        stderr+=data.toString();
+    });
+
+    cmd.on("close", function(code){
+        var err = null;
+
+        if(code!==0){
+            err = new Error(stderr);
+        }
+        
+        callback(err,stdout,stderr);
+    });
 }
 
 var codeToStatus = function(code) {
