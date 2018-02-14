@@ -60,7 +60,7 @@ newGit = function(callback) {
     run("rm -rf .git && git init", callback);
 }
 
-var randomFileName = function(lengths) {
+randomFileName = function(lengths) {
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     var filename = randomString(possible, lengths[0]);
     for (var i = 1; i < lengths.length; i++) {
@@ -82,6 +82,25 @@ var randomString = function(possible, length) {
     }
 
     return text;
+}
+
+moveFile = function(opts, callback) {
+    var oldPath = test_folder + "/" + opts.oldFileName;
+    var newPath = test_folder + "/" + opts.newFileName;
+
+    fs.rename(oldPath, newPath, function(err) {
+        if (err) {
+            callback(err);
+        } else {
+            run("git add " + opts.oldFileName + " " + opts.newFileName, function(err, stdout, stderr) {
+                if (err || stderr) {
+                    callback(err || new Error(stderr));
+                } else {
+                    callback(null, opts);
+                }
+            });
+        }
+    });
 }
 
 newFile = function(opts, callback) {
