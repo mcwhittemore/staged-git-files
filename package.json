@@ -1,6 +1,6 @@
 {
   "name": "staged-git-files",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "devDependencies": {
     "should": "~2.0.1",
     "mocha": "^2.0.1"
