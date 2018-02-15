@@ -106,6 +106,28 @@ describe("As a module", function() {
             });
         });
 
+        it("I should find renames", function(done) {
+            addAndCommitFile(function(err, data) {
+                if (err) {
+                    done(err);
+                } else {
+                    var newFileName = randomFileName([8, 3]);
+
+                    moveFile({
+                        oldFileName: data.filename,
+                        newFileName: newFileName
+                    }, function(err) {
+                        var sgf = newSGF();
+                        sgf(asyncCatch(done, function(results) {
+                            results.length.should.equal(1);
+                            results[0].filename.should.equal(newFileName);
+                            results[0].status.should.equal("Renamed");
+                        }));
+                    });
+                }
+            });
+        });
+
         it("if includeContent is set to true I should return the file paths, their git status and the content", function(done) {
             addFile(function(err, data) {
                 var sgf = newSGF();

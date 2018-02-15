@@ -12,7 +12,7 @@ var sgf = function(filter, callback) {
         if (err) {
             callback(err);
         } else {
-            var command = "git diff-index --cached --name-status --diff-filter=" + filter + " " + head;
+            var command = "git diff-index --cached --name-status -M --diff-filter=" + filter + " " + head;
             run(command, function(err, stdout, stderr) {
                 if (err || stderr) {
                     callback(err || new Error(stderr));
@@ -91,14 +91,20 @@ var run = function(command, callback) {
 
 var codeToStatus = function(code) {
     /* ===============================================================================================================================
-     ** PER git diff-index --help
-     ** --diff-filter=[(A|C|D|M|R|T|U|X|B)...[*]]
-     **     Select only files that are Added (A), Copied (C), Deleted (D), Modified (M), Renamed (R), have their type (i.e. regular
-     **     file, symlink, submodule, ...) changed (T), are Unmerged (U), are Unknown (X), or have had their pairing Broken (B). Any
-     **     combination of the filter characters (including none) can be used. When * (All-or-none) is added to the combination, all
-     **     paths are selected if there is any file that matches other criteria in the comparison; if there is no file that matches
-     **     other criteria, nothing is selected.
-     ** ============================================================================================================================ */
+    ** PER docs at https://git-scm.com/docs/git-diff-index
+    ** Possible status letters are:
+    **   A: addition of a file
+    **   C: copy of a file into a new one
+    **   D: deletion of a file
+    **   M: modification of the contents or mode of a file
+    **   R: renaming of a file
+    **   T: change in the type of the file
+    **   U: file is unmerged (you must complete the merge before it can be committed)
+    **   X: "unknown" change type (most probably a bug, please report it)
+    **
+    ** Status letters C and R are always followed by a score (denoting the percentage of similarity between the source and target of the move or copy).
+    ** Status letter M may be followed by a score (denoting the percentage of dissimilarity) for file rewrites.
+    ** ============================================================================================================================ */
 
     var map = {
         "A": "Added",
@@ -112,7 +118,7 @@ var codeToStatus = function(code) {
         "B": "Broken"
     }
 
-    return map[code];
+    return map[code.charAt(0)];
 }
 
 var stdoutToResultsObject = function(stdout) {
@@ -125,7 +131,7 @@ var stdoutToResultsObject = function(stdout) {
         if (line != "") {
             var parts = line.split("\t");
             var result = {
-                filename: parts[1],
+                filename: parts[2] || parts[1],
                 status: codeToStatus(parts[0])
             }
 
