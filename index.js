@@ -57,9 +57,6 @@ var run = function(command, callback) {
         console.log("RUNNING: " + command);
     }
     
-    // var exec = require("child_process").exec;
-    // exec("cd '" + module.exports.cwd + "' && " + command, callback);
-    
     var bits = command.split(" ");
     var args = bits.slice(1);
 
@@ -90,7 +87,7 @@ var run = function(command, callback) {
 }
 
 var codeToStatus = function(code) {
-    /* ===============================================================================================================================
+    /* =======================================================================================================
     ** PER docs at https://git-scm.com/docs/git-diff-index
     ** Possible status letters are:
     **   A: addition of a file
@@ -102,9 +99,10 @@ var codeToStatus = function(code) {
     **   U: file is unmerged (you must complete the merge before it can be committed)
     **   X: "unknown" change type (most probably a bug, please report it)
     **
-    ** Status letters C and R are always followed by a score (denoting the percentage of similarity between the source and target of the move or copy).
+    ** Status letters C and R are always followed by a score
+    ** (denoting the percentage of similarity between the source and target of the move or copy).
     ** Status letter M may be followed by a score (denoting the percentage of dissimilarity) for file rewrites.
-    ** ============================================================================================================================ */
+    ** ======================================================================================================= */
 
     var map = {
         "A": "Added",
