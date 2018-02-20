@@ -47,6 +47,8 @@ setup = function(callback) {
 }
 
 newSGF = function() {
+    delete require.cache[require.resolve('../')];
+
     var sgf = require("../");
     sgf.cwd = test_folder
     return sgf;

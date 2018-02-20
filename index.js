@@ -12,7 +12,14 @@ var sgf = function(filter, callback) {
         if (err) {
             callback(err);
         } else {
-            var command = "git diff-index --cached --name-status -M --diff-filter=" + filter + " " + head;
+            var command = "git diff-index --cached --name-status";
+
+            if (filter.indexOf('R') !== -1) {
+                command += " -M";
+            }
+
+            command += " --diff-filter=" + filter + " " + head;
+
             run(command, function(err, stdout, stderr) {
                 if (err || stderr) {
                     callback(err || new Error(stderr));
@@ -57,9 +64,6 @@ var run = function(command, callback) {
         console.log("RUNNING: " + command);
     }
     
-    // var exec = require("child_process").exec;
-    // exec("cd '" + module.exports.cwd + "' && " + command, callback);
-    
     var bits = command.split(" ");
     var args = bits.slice(1);
 
@@ -90,7 +94,7 @@ var run = function(command, callback) {
 }
 
 var codeToStatus = function(code) {
-    /* ===============================================================================================================================
+    /* =======================================================================================================
     ** PER docs at https://git-scm.com/docs/git-diff-index
     ** Possible status letters are:
     **   A: addition of a file
@@ -102,9 +106,10 @@ var codeToStatus = function(code) {
     **   U: file is unmerged (you must complete the merge before it can be committed)
     **   X: "unknown" change type (most probably a bug, please report it)
     **
-    ** Status letters C and R are always followed by a score (denoting the percentage of similarity between the source and target of the move or copy).
+    ** Status letters C and R are always followed by a score
+    ** (denoting the percentage of similarity between the source and target of the move or copy).
     ** Status letter M may be followed by a score (denoting the percentage of dissimilarity) for file rewrites.
-    ** ============================================================================================================================ */
+    ** ======================================================================================================= */
 
     var map = {
         "A": "Added",

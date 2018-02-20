@@ -95,21 +95,3 @@ The current working directory. AKA: where the .git folder you care about is.
 * Type-Change (T) [i.e. regular file, symlink, submodule, etc.]
 * Unmerged (U)
 * Unknown (X)
-
-## Change Log
-
-### master
-
-* adds a cli tool
-
-### 1.0.0
-
-* adds rename detection
-
-### 0.0.2
-
-* sgf.includeContent added. Now it is possible to also get the file content
-
-### 0.0.1
-
-* The mvp
