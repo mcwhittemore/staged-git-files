@@ -90,12 +90,3 @@ The current working directory. AKA: where the .git folder you care about is.
 * Unmerged (U)
 * Unknown (X)
 
-## Change Log
-
-### 0.0.2
-
-* sgf.includeContent added. Now it is possible to also get the file content
-
-### 0.0.1
-
-* The mvp
