@@ -1,7 +1,8 @@
 # Change Log
 
-## master
+## 1.1.0
 
+- Provide a binary called `sgf` [#11](https://github.com/mcwhittemore/staged-git-files/pull/11)
 - Improve git request to not include slow flags when the results of those flags aren't needed [#8](https://github.com/mcwhittemore/staged-git-files/pull/8) by [twhitbeck](https://github.com/twhitbeck).
 
 ## 1.0.0
