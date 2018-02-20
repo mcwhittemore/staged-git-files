@@ -4,13 +4,10 @@ This module returns an array of staged files and their status acording to git.
 
 ## Usage
 
-**Download**
-
 `npm install staged-git-files`
 
-**In Code**
 
-```
+```js
 var sgf = require("staged-git-files");
 sgf(function(err, results){
 	//WHAT EVER YOU SO PLEASE
@@ -19,7 +16,7 @@ sgf(function(err, results){
 
 **Example Results**
 
-```
+```json
 [
 	{
 		"filename": "package.json",
@@ -34,6 +31,15 @@ sgf(function(err, results){
 		"status": "Renamed"
 	}
 ]
+```
+
+## Usage as a cli
+
+```sh
+$ staged-git-files
+Added package.json
+Modified readme.md
+Renamed index.js
 ```
 
 ## API
@@ -89,4 +95,3 @@ The current working directory. AKA: where the .git folder you care about is.
 * Type-Change (T) [i.e. regular file, symlink, submodule, etc.]
 * Unmerged (U)
 * Unknown (X)
-

@@ -1,3 +1,4 @@
+
 describe("As a module", function() {
 
     describe("current working directory should", function() {
@@ -69,6 +70,44 @@ describe("As a module", function() {
                         }
                     });
                 }
+            });
+        });
+
+        it("I, being the cli, should log the file paths and their git status", function(done) {
+            addFiles(2, function(err, data) {
+                if (err) return done(err);
+
+                var sorter = function(a,b){
+                    if(a.filename > b.filename){
+                        return 1;
+                    }
+                    else if(a.filename < b.filename){
+                        return -1;
+                    }
+                    else{
+                        return 0;
+                    }
+                };
+                data.sort(sorter);
+
+                exec('../../bin/cli.js', {cwd: test_folder}, function(err, stdout, stderr) {
+                    if (err) return done(err);
+                    var results = stdout.trim().split('\n').map(function(line) {
+                      var p = line.split(' ');
+                      var status = p[0];
+                      var filename = p.slice(1).join(' ');
+                      return {
+                        status: status,
+                        filename: filename
+                      };
+                    });
+                    results.sort(sorter);
+                    for(var i=0; i<results.length; i++){
+                        results[i].filename.should.equal(data[i].filename);
+                        results[i].status.should.equal("Added");
+                    }
+                    done();
+                });
             });
         });
 
