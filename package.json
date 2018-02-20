@@ -13,7 +13,9 @@
   "scripts": {
     "test": "mocha"
   },
-  "bin": "bin/cli.js",
+  "bin": {
+    "sgf": "bin/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/mcwhittemore/staged-git-files.git"
