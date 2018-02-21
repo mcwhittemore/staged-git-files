@@ -36,7 +36,7 @@ sgf(function(err, results){
 ## Usage as a cli
 
 ```sh
-$ staged-git-files
+$ sgf
 Added package.json
 Modified readme.md
 Renamed index.js
