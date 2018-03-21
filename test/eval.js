@@ -213,6 +213,27 @@ describe("As a module", function() {
             });
         });
 
+        it("the staged filename contains chinese", function(done) {
+            addAndCommitFile(function(err, data) {
+                if (err) {
+                    done(err);
+                } else {
+                    var newFileName = '你好世界';
+                    moveFile({
+                        oldFileName: data.filename,
+                        newFileName: newFileName
+                    }, function(err) {
+                        var sgf = newSGF();
+                        sgf(asyncCatch(done, function(results) {
+                            results.length.should.equal(1);
+                            results[0].filename.should.equal(newFileName);
+                            results[0].status.should.equal("Renamed");
+                        }));
+                    });
+                }
+            });
+        });
+
         after(function(done) {
             cleanUp(done);
         });

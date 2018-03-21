@@ -1,5 +1,6 @@
 var spawn = require("child_process").spawn;
 var fs = require("fs");
+var decode = require("./decode")
 
 var sgf = function(filter, callback) {
 
@@ -136,7 +137,7 @@ var stdoutToResultsObject = function(stdout) {
         if (line != "") {
             var parts = line.split("\t");
             var result = {
-                filename: parts[2] || parts[1],
+                filename: decode(parts[2] || parts[1]),
                 status: codeToStatus(parts[0])
             }
 
