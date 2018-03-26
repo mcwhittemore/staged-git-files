@@ -1,6 +1,5 @@
 var spawn = require("child_process").spawn;
 var fs = require("fs");
-var decode = require("./decode")
 
 var sgf = function(filter, callback) {
 
@@ -13,7 +12,7 @@ var sgf = function(filter, callback) {
         if (err) {
             callback(err);
         } else {
-            var command = "git diff-index --cached --name-status";
+            var command = "git -c core.quotepath=false diff-index --cached --name-status";
 
             if (filter.indexOf('R') !== -1) {
                 command += " -M";
@@ -137,7 +136,7 @@ var stdoutToResultsObject = function(stdout) {
         if (line != "") {
             var parts = line.split("\t");
             var result = {
-                filename: decode(parts[2] || parts[1]),
+                filename: parts[2] || parts[1],
                 status: codeToStatus(parts[0])
             }
 
