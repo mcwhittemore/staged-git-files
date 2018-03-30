@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.1
+
+- Fix bug where chinese files names were returned as unicode ids [#15](https://github.com/mcwhittemore/staged-git-files/pull/15) by [imcuttle](https://github.com/imcuttle)
+
 ## 1.1.0
 
 - Provide a binary called `sgf` [#11](https://github.com/mcwhittemore/staged-git-files/pull/11)
