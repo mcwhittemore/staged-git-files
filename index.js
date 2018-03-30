@@ -12,7 +12,7 @@ var sgf = function(filter, callback) {
         if (err) {
             callback(err);
         } else {
-            var command = "git diff-index --cached --name-status";
+            var command = "git -c core.quotepath=false diff-index --cached --name-status";
 
             if (filter.indexOf('R') !== -1) {
                 command += " -M";
