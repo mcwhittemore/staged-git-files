@@ -1,22 +1,22 @@
-version: 2
+version: 2 # use CircleCI 2.0
 jobs:
-  build:
-    docker:
+  build: 
+    docker: 
       - image: circleci/node:7.10
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: git config --global user.email "1551510+mcwhittemore@users.noreply.github.com"
-      - run: git config --global user.name "test staged-git-files"
-      - run: npm install
-      - save_cache:
+    steps: # a collection of executable commands 
+      - checkout # special step to check out source code to working directory
+      - run:
+          name: update-npm 
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache: # special step to restore the dependency cache 
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm test
-
-
+            - ./node_modules
+      - run: # run tests
+          name: test
+          command: npm test
