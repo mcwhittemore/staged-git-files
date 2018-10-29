@@ -35,7 +35,7 @@ describe("As a module", function() {
         it("firstHead in a repo without commits", function(done) {
             var sgf = newSGF();
             sgf.getHead(asyncCatch(done, function(head){
-                head.should.equal(sgf.firstHead);
+                head.should.equal('4b825dc642cb6eb9a060e54bf8d69288fbee4904');
             }));
         });
 
