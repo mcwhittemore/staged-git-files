@@ -1,13 +1,29 @@
 var spawn = require("child_process").spawn;
 var fs = require("fs");
 
-var sgf = function(filter, callback) {
 
-    if (typeof filter == "function") {
+var sgf = function (filter, callback) {
+    if (typeof filter === "function") {
         callback = filter;
         filter = "ACDMRTUXB";
     }
 
+    if (typeof callback === "undefined") {
+        filter = "ACDMRTUXB";
+        return new Promise(function (resolve, reject) {
+            _sgf(filter, function (err, head) {
+                if (err)
+                    return reject(err);
+                resolve(head);
+            });
+        });
+    } else {
+        _sgf(filter, callback);
+    }
+};
+
+
+function _sgf (filter, callback) {
     sgf.getHead(function(err, head) {
         if (err) {
             callback(err);
@@ -29,7 +45,8 @@ var sgf = function(filter, callback) {
             });
         }
     });
-}
+};
+
 
 sgf.cwd = process.cwd();
 sgf.debug = false;

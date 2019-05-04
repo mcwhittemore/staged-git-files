@@ -53,6 +53,18 @@ Get a list of staged git files
 	* err: the error
 	* results: file object array.
 
+If you omit a callback `sgf` will return a promise. How to use with `async`/`await`:
+
+```javascript
+async function main () {
+	const stagedFiles = await sgf();
+}
+
+main();
+
+```
+
+
 ### sgf.getHead(callback)
 
 Get head that will be used in the diff to ID which files are waiting to be staged.
