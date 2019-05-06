@@ -207,7 +207,6 @@ describe("As a module", function() {
                 sgf().then(function(results) {
                     results[0].filename.should.equal(data.filename);
                     results[0].status.should.equal("Added");
-                    results[0].content.should.equal(data.content);
                     done();
                 }).catch(done);
             });
