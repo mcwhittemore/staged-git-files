@@ -3,13 +3,12 @@ var fs = require("fs");
 
 
 var sgf = function (filter, callback) {
-    if (typeof filter === "function") {
+    if (typeof filter === 'function') {
         callback = filter;
-        filter = "ACDMRTUXB";
+        filter = undefined;
     }
 
-    if (typeof callback === "undefined") {
-        filter = "ACDMRTUXB";
+    if (typeof callback === 'undefined') {
         return new Promise(function (resolve, reject) {
             _sgf(filter, function (err, head) {
                 if (err)
@@ -24,6 +23,9 @@ var sgf = function (filter, callback) {
 
 
 function _sgf (filter, callback) {
+    if (typeof filter === 'undefined')
+        filter = 'ACDMRTUXB';
+
     sgf.getHead(function(err, head) {
         if (err) {
             callback(err);
