@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.2.0
+
+- Adds promise support [#20](https://github.com/mcwhittemore/staged-git-files/pull/20) by [mreinstein](https://github.com/mreinstein)
+- Adds travis config to enable CI [#20](https://github.com/mcwhittemore/staged-git-files/pull/20) by [mreinstein](https://github.com/mreinstein)
+
 ## 1.1.1
 
 - Fix bug where chinese files names were returned as unicode ids [#15](https://github.com/mcwhittemore/staged-git-files/pull/15) by [imcuttle](https://github.com/imcuttle)
