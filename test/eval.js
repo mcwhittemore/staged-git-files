@@ -201,6 +201,40 @@ describe("As a module", function() {
             });
         });
 
+        it("if no callback is passed, I should return a promise and resolve the status of staged files", function(done) {
+            addFile(function(err, data) {
+                var sgf = newSGF();
+                sgf().then(function(results) {
+                    results[0].filename.should.equal(data.filename);
+                    results[0].status.should.equal("Added");
+                    done();
+                }).catch(done);
+            });
+        });
+
+        it("if no callback is passed but a filter is passed, I should return a promise and resolve the status of staged files", function(done) {
+            addAndCommitFile(function(err, data) {
+                if (err) {
+                    done(err);
+                } else {
+                    var newFileName = randomFileName([8, 3]);
+
+                    moveFile({
+                        oldFileName: data.filename,
+                        newFileName: newFileName
+                    }, function(err) {
+                        var sgf = newSGF();
+                        sgf('A').then(function(results) {
+                            results.length.should.equal(1);
+                            results[0].filename.should.equal(newFileName);
+                            results[0].status.should.equal("Added");
+                            done();
+                        }).catch(done);
+                    });
+                }
+            });
+        });
+
         it("readFile will aysnc read a file and return its content", function(done) {
             addFile(function(err, data) {
                 var sgf = newSGF();

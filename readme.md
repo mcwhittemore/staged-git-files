@@ -2,6 +2,8 @@
 
 This module returns an array of staged files and their status acording to git.
 
+[![Build Status](https://travis-ci.org/mcwhittemore/staged-git-files.svg?branch=master)](https://travis-ci.org/mcwhittemore/staged-git-files)
+
 ## Usage
 
 `npm install staged-git-files`
@@ -52,6 +54,18 @@ Get a list of staged git files
 * callback:
 	* err: the error
 	* results: file object array.
+
+If you omit a callback `sgf` will return a promise. How to use with `async`/`await`:
+
+```javascript
+async function main () {
+	const stagedFiles = await sgf();
+}
+
+main();
+
+```
+
 
 ### sgf.getHead(callback)
 
