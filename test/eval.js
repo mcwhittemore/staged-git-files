@@ -228,6 +228,7 @@ describe("As a module", function() {
                             results.length.should.equal(1);
                             results[0].filename.should.equal(newFileName);
                             results[0].status.should.equal("Added");
+                            done();
                         }).catch(done);
                     });
                 }
