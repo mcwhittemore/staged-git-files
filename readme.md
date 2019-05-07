@@ -2,6 +2,8 @@
 
 This module returns an array of staged files and their status acording to git.
 
+[![Build Status](https://travis-ci.org/mcwhittemore/staged-git-files.svg?branch=master)](https://travis-ci.org/mcwhittemore/staged-git-files)
+
 ## Usage
 
 `npm install staged-git-files`
