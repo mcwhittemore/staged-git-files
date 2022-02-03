@@ -50,7 +50,9 @@ Renamed index.js
 
 Get a list of staged git files
 
-* filter: string of git status codes. No spaces
+* options:
+  * filter: string of git status codes. No spaces
+  * relative: boolean, tells [diff to run in relative mode](https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---relativeltpathgt)
 * callback:
 	* err: the error
 	* results: file object array.
@@ -63,7 +65,6 @@ async function main () {
 }
 
 main();
-
 ```
 
 

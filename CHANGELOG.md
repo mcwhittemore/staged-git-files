@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.0
+
+- Adds [--relative](https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---relativeltpathgt) support to allow the listing of files in the current directoy. [#21](https://github.com/mcwhittemore/staged-git-files/pull/21) by [mgrsskls](https://github.com/mgrsskls).
+
 ## 1.2.0
 
 - Adds promise support [#20](https://github.com/mcwhittemore/staged-git-files/pull/20) by [mreinstein](https://github.com/mreinstein)
