@@ -2,10 +2,17 @@ var spawn = require("child_process").spawn;
 var fs = require("fs");
 
 
-var sgf = function (filter, callback) {
-    if (typeof filter === 'function') {
-        callback = filter;
-        filter = undefined;
+var sgf = function (options = {}, callback) {
+    const typeOfOptions = typeof options;
+    let filter;
+
+    if (typeOfOptions === 'function') {
+      callback = options;
+      filter = undefined;
+    } else if (typeOfOptions === 'string') {
+      filter = options;
+    } else {
+      filter = options.filter;
     }
 
     if (typeof callback === 'undefined') {
@@ -14,15 +21,15 @@ var sgf = function (filter, callback) {
                 if (err)
                     return reject(err);
                 resolve(head);
-            });
+            }, options);
         });
     } else {
-        _sgf(filter, callback);
+        _sgf(filter, callback, options);
     }
 };
 
 
-function _sgf (filter, callback) {
+function _sgf (filter, callback, options) {
     if (typeof filter === 'undefined')
         filter = 'ACDMRTUXB';
 
@@ -32,6 +39,9 @@ function _sgf (filter, callback) {
         } else {
             var command = "git -c core.quotepath=false diff-index --cached --name-status";
 
+            if (options.relative) {
+                command += " --relative";
+            }
             if (filter.indexOf('R') !== -1) {
                 command += " -M";
             }

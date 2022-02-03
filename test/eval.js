@@ -235,6 +235,33 @@ describe("As a module", function() {
             });
         });
 
+        describe("if the first param is an object", function() {
+            describe("and a filter is set", function() {
+                it("I should return a promise and resolve the status of staged files", function(done) {
+                    addAndCommitFile(function(err, data) {
+                        if (err) {
+                            done(err);
+                        } else {
+                            var newFileName = randomFileName([8, 3]);
+        
+                            moveFile({
+                                oldFileName: data.filename,
+                                newFileName: newFileName
+                            }, function(err) {
+                                var sgf = newSGF();
+                                sgf({ filter: 'A', relative: true }).then(function(results) {
+                                    results.length.should.equal(1);
+                                    results[0].filename.should.equal(newFileName);
+                                    results[0].status.should.equal("Added");
+                                    done();
+                                }).catch(done);
+                            });
+                        }
+                    });
+                });
+            });
+        });
+
         it("readFile will aysnc read a file and return its content", function(done) {
             addFile(function(err, data) {
                 var sgf = newSGF();
